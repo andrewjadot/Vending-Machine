@@ -57,8 +57,7 @@ public class Menu {
                 this.inventory.displayItems();
                 return;
              case 2:
-                this.cashregister.displayOptions();
-                this.cashregister.getOptionsSelected();
+                this.cashregister.optionsFunction();
                 return;
             case 3:
                 System.exit(0);
@@ -76,5 +75,8 @@ public class Menu {
         myMenu.getUserSelection();
         myMenu.processSelection();
     }
+
+
+
 
 }

@@ -1,53 +1,80 @@
 package com.techelevator.view;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Scanner;
-
+import java.util.*;
 public class Menu {
+    Scanner in = new Scanner(System.in);
 
-	private PrintWriter out;
-	private Scanner in;
+    public static String[] menuItems = {"1) Inventory", "2) Purchases", "3) Exit"};
+    public static String[] items = {"1) Chips", "2) Drinks", "3) Gum", "4) Candy"};
+    public static String[] money = {"$1", "$2", "$5", "$10", };
+    public int selectionNum;
+    public String inputString;
+    public int selection;
+    public Inventory inventory;
+    public cashRegister cashregister;
 
-	public Menu(InputStream input, OutputStream output) {
-		this.out = new PrintWriter(output);
-		this.in = new Scanner(input);
-	}
+    public Menu (String[] menuItems, Inventory inventory, cashRegister cashregister) {
+        this.menuItems = menuItems;
+        this.inventory = inventory;
+        this.selection = -1;
+        this.cashregister = cashregister;
+    }
 
-	public Object getChoiceFromOptions(Object[] options) {
-		Object choice = null;
-		while (choice == null) {
-			displayMenuOptions(options);
-			choice = getChoiceFromUserInput(options);
-		}
-		return choice;
-	}
+    public void makeMenu() {
 
-	private Object getChoiceFromUserInput(Object[] options) {
-		Object choice = null;
-		String userInput = in.nextLine();
-		try {
-			int selectedOption = Integer.valueOf(userInput);
-			if (selectedOption > 0 && selectedOption <= options.length) {
-				choice = options[selectedOption - 1];
-			}
-		} catch (NumberFormatException e) {
-			// eat the exception, an error message will be displayed below since choice will be null
-		}
-		if (choice == null) {
-			out.println(System.lineSeparator() + "*** " + userInput + " is not a valid option ***" + System.lineSeparator());
-		}
-		return choice;
-	}
+        for (int i = 0; i < this.menuItems.length; i++) {
+            System.out.println(this.menuItems[i]);
+        };
 
-	private void displayMenuOptions(Object[] options) {
-		out.println();
-		for (int i = 0; i < options.length; i++) {
-			int optionNum = i + 1;
-			out.println(optionNum + ") " + options[i]);
-		}
-		out.print(System.lineSeparator() + "Please choose an option >>> ");
-		out.flush();
-	}
+
+        System.out.println("\nEnter your selection number: ");
+
+
+    }
+
+    public int getUserSelection() {
+
+        try {
+            inputString = in.nextLine();
+            selectionNum = Integer.parseInt(inputString);
+
+            if (selectionNum > 0 && selectionNum <= this.menuItems.length) {
+                this.selection = selectionNum;
+
+                return selectionNum;
+            }
+        } catch (NumberFormatException erik) {}
+
+        System.out.println(this.selection);
+        System.out.println("\nInvalid Input: " + inputString);
+
+        return selectionNum;
+    }
+
+    public void processSelection() {
+
+        switch(this.selection) {
+            case 1:
+                this.inventory.displayItems();
+                return;
+             case 2:
+                this.cashregister.displayOptions();
+                this.cashregister.getOptionsSelected();
+                return;
+            case 3:
+                System.exit(0);
+
+            default:
+                return;
+        }
+    }
+
+    public static void main(String[] args) {
+        Inventory inventory = new Inventory(items);
+        cashRegister cashregister = new cashRegister(money);
+        Menu myMenu = new Menu(menuItems, inventory, cashregister);
+        myMenu.makeMenu();
+        myMenu.getUserSelection();
+        myMenu.processSelection();
+    }
+
 }

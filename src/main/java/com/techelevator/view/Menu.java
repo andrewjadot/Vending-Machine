@@ -65,8 +65,10 @@ public class Menu {
                 return;
             case 2:
                 this.cashregister.optionsFunction();
+                this.menuFunction();
                 return;
             case 3:
+                System.out.println("Thank you come again!");
                 System.exit(0);
 
             default:

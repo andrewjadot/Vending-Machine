@@ -43,7 +43,7 @@ public abstract class Products {
    // }
 
     //Methods
-    public String stillAvailableForPurchase(){
+    public String stillAvailable(){
         if(this.stock >= 1){
             return "" + this.stock;
         }

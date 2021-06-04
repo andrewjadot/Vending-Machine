@@ -71,7 +71,7 @@ public class Inventory {
 
             if (items.containsKey(inputString)){
                 Products choice = items.get(inputString);
-
+                return choice;
             }
         return choice;
     }

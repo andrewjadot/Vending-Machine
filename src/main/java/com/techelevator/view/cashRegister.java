@@ -1,10 +1,17 @@
 package com.techelevator.view;
 
+import java.io.*;
+import java.sql.Time;
+import java.util.Date;
 import java.util.Map;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+
 
 public class cashRegister {
     Scanner in = new Scanner(System.in);
+    FileWriter auditFile;
+    PrintWriter writer;
     public String[] options = {"1) Feed Money", "2) Select Product", "3) Finish Transaction"};
     public Map<String, Products> items;
     public int balance = 0;
@@ -13,12 +20,34 @@ public class cashRegister {
     public int selection;
     public Inventory inventory;
     public Products choice;
+    public SimpleDateFormat currentTimeFormatter;
+    public SimpleDateFormat currentDateFormatter;
+
+
 
     public cashRegister(Inventory inventory) {
-       this.inventory = inventory;
+        this.inventory = inventory;
         this.balance = balance;
         this.selection = -1;
     }
+
+    public void writeToFile(String action, int amount) {
+        Date now = new Date();
+        try {
+            FileWriter auditFile = new FileWriter("VendingMachineAudit.txt", true);
+            PrintWriter writer = new PrintWriter(auditFile);
+
+            currentTimeFormatter = new SimpleDateFormat("HH:mm:ss");
+            currentDateFormatter = new SimpleDateFormat("dd-MM-yyy");
+            writer.println(currentDateFormatter.format(now) + " | " + currentTimeFormatter.format(now) + " | " + action + " | " + amount + " | " + this.balance);
+            writer.close();
+        } catch (Exception ignored) {
+        }
+    }
+
+
+
+
 
     public void displayOptions() {
         for (int i = 0; i < this.options.length; i++) {
@@ -44,7 +73,7 @@ public class cashRegister {
         } catch (NumberFormatException e) {
         }
 
-        System.out.println("\nInvalid Input: " + inputString);
+        System.out.println("\nInvalid Input: " + inputString + "\n");
         return selectionNum;
     }
 
@@ -58,10 +87,11 @@ public class cashRegister {
                 this.makeSale();
                 return;
             case 3:
-                System.exit(0);
+                this.finishTransaction();
+                return;
 
             default:
-                return;
+                this.optionsFunction();
         }
     }
 
@@ -70,17 +100,22 @@ public class cashRegister {
         System.out.println("Make your choice(based on the items code): ");
         inputString = in.nextLine();
         Products choice = this.inventory.makeSale(inputString);
-        System.out.println(choice);
         if (choice.getPrice() <= this.balance) {
-            this.balance -= choice.getPrice();
-            System.out.println("Enjoy your " + choice.getName() + "! \n" + choice.makeSound());
-            choice.purchasedItems();
+            if (choice.stillAvailable() != "Sold Out!") {
+                this.balance -= choice.getPrice();
+                System.out.println("Price: $" + choice.getPrice() + ".00  | Your remaining Balance: $" + this.balance + ".00");
+                System.out.println("\nEnjoy your " + choice.getName() + "! \n" + choice.makeSound() + "\n");
+                choice.purchasedItems();
+                this.writeToFile(choice.getName() + " " + inputString, choice.getPrice());
+            } else {
+                System.out.println("That item is sold out!\nPlease try another selection.\n");
+            }
         } else {
             System.out.println("Need more money!");
-            this.optionsFunction();
         }
-    }
 
+        this.optionsFunction();
+    }
 
     public void feedMoney() {
         this.selection = -1;
@@ -89,36 +124,36 @@ public class cashRegister {
             inputString = in.nextLine();
             selectionNum = Integer.parseInt(inputString);
             this.selection = selectionNum;
+
         } catch (NumberFormatException e) {
 
         }
         switch (this.selection) {
             case 1:
-                balance += 1;
-                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                this.displayOptions();
-                return;
+                this.balance += 1;
+                break;
             case 2:
-                balance += 2;
-                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                this.displayOptions();
-                return;
+                this.balance += 2;
+                break;
             case 5:
-                balance += 5;
-                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                this.displayOptions();
-                return;
+                this.balance += 5;
+                break;
             case 10:
-                balance += 10;
-                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                this.displayOptions();
-                return;
+                this.balance += 10;
+                break;
 
             default:
                 System.out.println("Invalid input please enter Integer");
                 this.feedMoney();
         }
+        this.printBalance();
+        this.writeToFile("Fed Money",this.selection);
+    }
 
+    public void finishTransaction() {
+        System.out.println("Transaction Complete. \nPlease take your change: $" + this.balance + ".00\n\n");
+        this.writeToFile("GIVE CHANGE", this.balance);
+        this.balance = 0;
     }
 
 
@@ -128,7 +163,16 @@ public class cashRegister {
         this.processSelection();
     }
 
-    public static void main(String[] arg) {
+    public void printBalance() {
+        System.out.println("\nYour balance: $" + this.balance + ".00");
+    }
+
+    public void writeToFile(String Action) {
+        writer.println();
+    }
+
+
+    public static void main(String[] arg) throws IOException {
 
     }
 }

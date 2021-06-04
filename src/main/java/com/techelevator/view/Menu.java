@@ -15,6 +15,8 @@ public class Menu {
     public Inventory inventory;
     public CashRegister cashregister;
 
+
+
     public Menu(String[] menuItems, Inventory inventory, CashRegister cashRegister) {
         this.menuItems = menuItems;
         this.inventory = inventory;
@@ -75,6 +77,9 @@ public class Menu {
     }
 
     public static void main(String[] args) {
+        System.out.println("*****************************");
+        System.out.println("****WELCOME TO VENDO-TRON****");
+        System.out.println("*****************************");
         Inventory inventory = new Inventory(items);
         CashRegister cashRegister = new CashRegister(money);
         Menu myMenu = new Menu(menuItems, inventory, cashRegister);

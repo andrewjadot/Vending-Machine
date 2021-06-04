@@ -1,10 +1,13 @@
 package com.techelevator.view;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory {
-  public static Map<String, Products> items;
+  public static Map<String, Products> items = new HashMap<String, Products>();
     //public static String[] items = {"1) Chips", "2) Drinks", "3) Gum", "4) Candy"};
+
+
 
 
     Gum fiveGum = new Gum("FiveGum", 1);
@@ -24,21 +27,24 @@ public class Inventory {
     Drinks sprite = new Drinks ("Sprite", 4);
 
 
-    public Inventory(Map<String, Products> items) { //change this to a map
+    public Inventory() { //change this to a map
         this.items = items;
-        items.put("A1", fiveGum);
-        items.put("A2", bigRed);
-        items.put("A3", doubleMint);
-        items.put("B1", laysOriginal);
-        items.put("B2", doritos);
-        items.put("B3", herrs);
-        items.put("C1",snickers);
-        items.put("C2", reeses);
-        items.put("C3", payday);
-        items.put("D1", mountainDew);
-        items.put("D2", coke);
-        items.put("D3", sprite);
-    }
+
+
+            items.put("A1", fiveGum);
+            items.put("A2", bigRed);
+            items.put("A3", doubleMint);
+            items.put("B1", laysOriginal);
+            items.put("B2", doritos);
+            items.put("B3", herrs);
+            items.put("C1", snickers);
+            items.put("C2", reeses);
+            items.put("C3", payday);
+            items.put("D1", mountainDew);
+            items.put("D2", coke);
+            items.put("D3", sprite);
+        }
+
 
 
 
@@ -48,18 +54,18 @@ public class Inventory {
     } */
 
     public void displayItems() {
-        if(items != null)
-        for (int i = 0; i < this.items.size(); i++) { //change to this.items.size
-            System.out.println(this.items);
+
+        if (items != null) {
+            for (Map.Entry<String, Products> item : items.entrySet()) {
+                System.out.println(item.getKey() + " " + item.getValue().getName());
+            }
+            // System.out.println("\nWhat would you like?: ");
         }
-       // System.out.println("\nWhat would you like?: ");
+
     }
 
-
-
     public static void main(String[] args) {
-        Inventory inventory = new Inventory(items);
-        inventory.displayItems();
+
     }
 
 

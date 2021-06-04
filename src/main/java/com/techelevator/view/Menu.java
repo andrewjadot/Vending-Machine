@@ -60,8 +60,8 @@ public class Menu {
         switch (this.selection) {
             case 1:
                 this.inventory.displayItems();
-                System.out.println("");
-                this.makeMenu();
+               // System.out.println("");
+                //this.makeMenu();
                 return;
             case 2:
                 this.cashregister.optionsFunction();
@@ -75,7 +75,7 @@ public class Menu {
     }
 
     public static void main(String[] args) {
-        Inventory inventory = new Inventory(items);
+        Inventory inventory = new Inventory();
         CashRegister cashRegister = new CashRegister(money);
         Menu myMenu = new Menu(menuItems, inventory, cashRegister);
         myMenu.makeMenu();

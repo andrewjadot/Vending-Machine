@@ -62,8 +62,8 @@ public class Menu {
         switch (this.selection) {
             case 1:
                 this.inventory.displayItems();
-               // System.out.println("");
-                //this.makeMenu();
+                System.out.println("");
+                this.menuFunction();
                 return;
             case 2:
                 this.cashregister.optionsFunction();
@@ -76,15 +76,18 @@ public class Menu {
         }
     }
 
+    public void menuFunction(){
+        this.makeMenu();
+        this.getUserSelection();
+        this.processSelection();
+    }
+
     public static void main(String[] args) {
-<<<<<<< HEAD
         System.out.println("*****************************");
         System.out.println("****WELCOME TO VENDO-TRON****");
         System.out.println("*****************************");
-        Inventory inventory = new Inventory(items);
-=======
+
         Inventory inventory = new Inventory();
->>>>>>> 8c2a9e1ef66e4c113d6b7a4f5375ef4dad6e06b0
         CashRegister cashRegister = new CashRegister(money);
         Menu myMenu = new Menu(menuItems, inventory, cashRegister);
         myMenu.makeMenu();

@@ -54,7 +54,6 @@ public class CashRegister {
                 this.optionsFunction();
                 return;
             case 2:
-                this.displayItems();
                 this.makeSale();
                 return;
             case 3:

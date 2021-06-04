@@ -1,10 +1,11 @@
 package com.techelevator.view;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Inventory {
-  public static Map<String, Products> items = new HashMap<String, Products>();
+  public static Map<String, Products> items = new LinkedHashMap<String, Products>();
     //public static String[] items = {"1) Chips", "2) Drinks", "3) Gum", "4) Candy"};
 
 
@@ -57,7 +58,7 @@ public class Inventory {
 
         if (items != null) {
             for (Map.Entry<String, Products> item : items.entrySet()) {
-                System.out.println(item.getKey() + " " + item.getValue().getName());
+                System.out.println(item.getKey() + " " + item.getValue().getName() + " $" + item.getValue().getPrice() + ".00  Stock: " + item.getValue().getStock());
             }
             // System.out.println("\nWhat would you like?: ");
         }

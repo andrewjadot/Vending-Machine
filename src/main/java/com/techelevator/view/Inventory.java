@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Inventory {
   public static Map<String, Products> items = new LinkedHashMap<String, Products>();
+  public Products choice;
     //public static String[] items = {"1) Chips", "2) Drinks", "3) Gum", "4) Candy"};
 
 
@@ -60,9 +61,19 @@ public class Inventory {
             for (Map.Entry<String, Products> item : items.entrySet()) {
                 System.out.println(item.getKey() + " " + item.getValue().getName() + " $" + item.getValue().getPrice() + ".00  Stock: " + item.getValue().getStock());
             }
-            // System.out.println("\nWhat would you like?: ");
+           
         }
 
+    }
+
+    public Products makeSale(String inputString) {
+
+
+            if (items.containsKey(inputString)){
+                Products choice = items.get(inputString);
+
+            }
+        return choice;
     }
 
     public static void main(String[] args) {

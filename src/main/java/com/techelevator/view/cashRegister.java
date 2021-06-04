@@ -1,20 +1,21 @@
 package com.techelevator.view;
 
+import java.util.Map;
 import java.util.Scanner;
 
-public class CashRegister {
+public class cashRegister {
     Scanner in = new Scanner(System.in);
-    public String[] money;
     public String[] options = {"1) Feed Money", "2) Select Product", "3) Finish Transaction"};
-    public static String[] items = {"1) Chips", "2) Drinks", "3) Gum", "4) Candy"};
+    public Map<String, Products> items;
     public int balance = 0;
     public String inputString;
     public int selectionNum = -1;
     public int selection;
+    public Inventory inventory;
+    public Products choice;
 
-
-    public CashRegister(String[] money) {
-        this.money = money;
+    public cashRegister(Inventory inventory) {
+       this.inventory = inventory;
         this.balance = balance;
         this.selection = -1;
     }
@@ -64,10 +65,22 @@ public class CashRegister {
         }
     }
 
-
     public void makeSale() {
-
+        System.out.println("");
+        System.out.println("Make your choice(based on the items code): ");
+        inputString = in.nextLine();
+        Products choice = this.inventory.makeSale(inputString);
+        System.out.println(choice);
+        if (choice.getPrice() <= this.balance) {
+            this.balance -= choice.getPrice();
+            System.out.println("Enjoy your " + choice.getName() + "! \n" + choice.makeSound());
+            choice.purchasedItems();
+        } else {
+            System.out.println("Need more money!");
+            this.optionsFunction();
+        }
     }
+
 
     public void feedMoney() {
         this.selection = -1;
@@ -108,14 +121,6 @@ public class CashRegister {
 
     }
 
-    public void displayItems() {
-        for (int i = 0; i < this.items.length; i++) {
-
-            System.out.println(this.items[i]);
-
-        }
-        System.out.println("\nWhat would you like?: ");
-    }
 
     public void optionsFunction() {
         this.displayOptions();

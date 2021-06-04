@@ -6,20 +6,18 @@ public class Menu {
     Scanner in = new Scanner(System.in);
 
     public static String[] menuItems = {"1) Inventory", "2) Purchase", "3) Exit"};
-   public static Map<String, Products> items; //String is equal to the position and Products are Chips, Candy, etc.
-    //public static String[] items = {"1) Chips", "2) Drinks", "3) Gum", "4) Candy"};
-    public static String[] money = {"$1", "$2", "$5", "$10",};
+   public static Map<String, Products> items;
+
     public int selectionNum;
     public String inputString;
     public int selection;
     public Inventory inventory;
-    public CashRegister cashregister;
+    public cashRegister cashregister;
 
 
 
-    public Menu(String[] menuItems, Inventory inventory, CashRegister cashRegister) {
+    public Menu(String[] menuItems, cashRegister cashRegister) {
         this.menuItems = menuItems;
-        this.inventory = inventory;
         this.selection = -1;
         this.cashregister = cashRegister;
     }
@@ -61,7 +59,7 @@ public class Menu {
 
         switch (this.selection) {
             case 1:
-                this.inventory.displayItems();
+                this.cashregister.inventory.displayItems();
                 System.out.println("");
                 this.menuFunction();
                 return;
@@ -88,8 +86,8 @@ public class Menu {
         System.out.println("*****************************");
 
         Inventory inventory = new Inventory();
-        CashRegister cashRegister = new CashRegister(money);
-        Menu myMenu = new Menu(menuItems, inventory, cashRegister);
+        cashRegister cashRegister = new cashRegister(inventory);
+        Menu myMenu = new Menu(menuItems, cashRegister);
         myMenu.makeMenu();
         myMenu.getUserSelection();
         myMenu.processSelection();

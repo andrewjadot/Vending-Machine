@@ -45,14 +45,14 @@ public abstract class Products {
     //Methods
     public String stillAvailableForPurchase(){
         if(this.stock >= 1){
-            return "" + stock;
+            return "" + this.stock;
         }
         return "Sold Out!";
         }
 
 
     public void purchasedItems(){
-        stock--;
+        this.stock--;
     }
 
 

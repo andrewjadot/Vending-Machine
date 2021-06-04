@@ -2,8 +2,8 @@ package com.techelevator.view;
 
 public class Chips extends Products{
     //Constructor
-    public Chips(String slot, String name, int price, int stock){
-        super(slot, name, price, stock);
+    public Chips( String name, int price){
+        super( name, price);
     }
 
     //Abstract Method implementation override

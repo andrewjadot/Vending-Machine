@@ -1,8 +1,8 @@
 package com.techelevator.view;
 
 public class Candy extends Products{
-    public Candy(String slot, String name, int price, int stock) {
-        super(slot, name, price, stock);
+    public Candy( String name,int price) {
+        super(name, price);
     }
 
     //Abstract Method implementation override

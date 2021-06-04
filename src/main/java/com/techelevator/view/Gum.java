@@ -2,8 +2,8 @@ package com.techelevator.view;
 
 public class Gum extends Products{
 
-    public Gum(String slot, String name, int price, int stock) {
-        super(slot, name, price, stock);
+    public Gum( String name, int price) {
+        super( name, price);
     }
 
 //Abstract Method implementation override

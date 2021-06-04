@@ -2,7 +2,7 @@ package com.techelevator.view;
 
 import java.util.Scanner;
 
-public class cashRegister {
+public class CashRegister {
     Scanner in = new Scanner(System.in);
     public String[] money;
     public String[] options = {"1) Feed Money", "2) Select Product", "3) Finish Transaction"};
@@ -13,7 +13,7 @@ public class cashRegister {
     public int selection;
 
 
-    public cashRegister(String[] money) {
+    public CashRegister(String[] money) {
         this.money = money;
         this.balance = balance;
         this.selection = -1;
@@ -27,34 +27,35 @@ public class cashRegister {
         }
 
 
-
         System.out.println("\nCurrent money provided: $" + this.balance + ".00");
 
     }
 
-    public int getOptionsSelected(){
+    public int getOptionsSelected() {
         try {
             inputString = in.nextLine();
             selectionNum = Integer.parseInt(inputString);
 
-            if(selectionNum > 0 && selectionNum <= this.options.length){
+            if (selectionNum > 0 && selectionNum <= this.options.length) {
                 this.selection = selectionNum;
                 return selectionNum;
             }
-        } catch (NumberFormatException e) {}
+        } catch (NumberFormatException e) {
+        }
 
         System.out.println("\nInvalid Input: " + inputString);
         return selectionNum;
     }
-    public void processSelection(){
-        switch(this.selection) {
+
+    public void processSelection() {
+        switch (this.selection) {
             case 1:
                 this.feedMoney();
                 this.optionsFunction();
                 return;
             case 2:
                 this.displayItems();
-                this.makesale();
+                this.makeSale();
                 return;
             case 3:
                 System.exit(0);
@@ -65,7 +66,7 @@ public class cashRegister {
     }
 
 
-    public void makesale(){
+    public void makeSale() {
 
     }
 
@@ -76,35 +77,35 @@ public class cashRegister {
             inputString = in.nextLine();
             selectionNum = Integer.parseInt(inputString);
             this.selection = selectionNum;
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
 
         }
-            switch (this.selection) {
-                case 1:
-                    balance += 1;
-                    System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                   this.displayOptions();
-                    return;
-                case 2:
-                    balance += 2;
-                    System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                    this.displayOptions();
-                    return;
-                case 5:
-                    balance += 5;
-                    System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                    this.displayOptions();
-                    return;
-                case 10:
-                    balance += 10;
-                    System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-                    this.displayOptions();
-                    return;
+        switch (this.selection) {
+            case 1:
+                balance += 1;
+                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
+                this.displayOptions();
+                return;
+            case 2:
+                balance += 2;
+                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
+                this.displayOptions();
+                return;
+            case 5:
+                balance += 5;
+                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
+                this.displayOptions();
+                return;
+            case 10:
+                balance += 10;
+                System.out.println("\nCurrent money provided: $" + this.balance + ".00");
+                this.displayOptions();
+                return;
 
-                default:
-                   System.out.println("Invalid input please enter Integer");
-                    this.feedMoney();
-            }
+            default:
+                System.out.println("Invalid input please enter Integer");
+                this.feedMoney();
+        }
 
     }
 
@@ -117,13 +118,13 @@ public class cashRegister {
         System.out.println("\nWhat would you like?: ");
     }
 
-    public void optionsFunction(){
+    public void optionsFunction() {
         this.displayOptions();
         this.getOptionsSelected();
         this.processSelection();
     }
 
-    public static void main(String[] arg){
+    public static void main(String[] arg) {
 
     }
 }

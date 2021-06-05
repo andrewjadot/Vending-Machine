@@ -13,7 +13,7 @@ public class cashRegister {
     Scanner in = new Scanner(System.in);
     private FileWriter auditFile;
     private PrintWriter writer;
-    private String[] options = {"1) Feed Money", "2) Select Product", "3) Finish Transaction"};
+    private String[] options = {"\n1) Feed Money", "2) Select Product", "3) Finish Transaction"};
     private Map<String, Products> items;
     private int balance = 0;
     private String inputString;
@@ -52,7 +52,8 @@ public class cashRegister {
             System.out.println(this.options[i]);
 
         }
-        System.out.println("\nCurrent money provided: $" + this.balance + ".00");
+        System.out.println("\nRemaining Balance: $" + this.balance + ".00");
+        System.out.print("\nPlease select an option: ");
     }
 
     public int getOptionsSelected() {
@@ -94,13 +95,14 @@ public class cashRegister {
         inputString = in.nextLine();
         Products choice = this.inventory.makeSale(inputString);
         if(choice == null){
-            System.out.println("Invalid code: " + inputString + "\n");
+            System.out.println("Invalid code: " + inputString);
+            System.out.println("You are being returned to the purchase menu!");
             this.optionsFunction();
         }
         if (choice.getPrice() <= this.balance) {
             if (choice.stillAvailable() != "Sold Out!") {
                 this.balance -= choice.getPrice();
-                System.out.println("Price: $" + choice.getPrice() + ".00  | Your remaining Balance: $" + this.balance + ".00");
+                System.out.println("\nPrice: $" + choice.getPrice() + ".00  | Your remaining Balance: $" + this.balance + ".00");
                 System.out.println("\nEnjoy your " + choice.getName() + "! \n" + choice.makeSound() + "\n");
                 choice.purchasedItems();
                 this.writeToFile(choice.getName() + " " + inputString, choice.getPrice());
@@ -114,7 +116,7 @@ public class cashRegister {
     }
 
     public void feedMoney() {
-        System.out.println("Please add either $1, $2, $5, $10");
+        System.out.print("\nPlease add either $1, $2, $5, $10 (as an integer): ");
         try {
             inputString = in.nextLine();
             selectionNum = Integer.parseInt(inputString);
@@ -140,25 +142,18 @@ public class cashRegister {
                 System.out.println("Invalid input please enter Integer");
                 this.feedMoney();
         }
-        this.printBalance();
         this.writeToFile("Fed Money", this.selection);
     }
 
     public void finishTransaction() {
-        System.out.println("Transaction Complete. \nPlease take your change: $" + this.balance + ".00\n\n");
+        System.out.println("\nTransaction Complete. \nPlease take your change: $" + this.balance + ".00\n");
         this.writeToFile("GIVE CHANGE", this.balance);
         this.balance = 0;
     }
-
 
     public void optionsFunction() {
         this.displayOptions();
         this.getOptionsSelected();
         this.processSelection();
     }
-
-    public void printBalance() {
-        System.out.println("\nYour balance: $" + this.balance + ".00");
-    }
-
 }

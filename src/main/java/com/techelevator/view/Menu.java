@@ -23,7 +23,8 @@ public class Menu {
         for (int i = 0; i < this.menuItems.length; i++) {
             System.out.println(this.menuItems[i]);
         }
-        System.out.println("\nEnter your selection number: ");
+        System.out.print("\nEnter your selection number: ");
+
     }
 
     public int getUserSelection() {
@@ -75,9 +76,11 @@ public class Menu {
     }
 
     public static void main(String[] args) {
+        System.out.println("");
         System.out.println("*****************************");
         System.out.println("****WELCOME TO VENDO-TRON****");
         System.out.println("*****************************");
+        System.out.println("");
 
         Inventory inventory = new Inventory();
         cashRegister cashRegister = new cashRegister(inventory);

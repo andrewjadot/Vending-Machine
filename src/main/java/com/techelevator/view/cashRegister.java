@@ -1,6 +1,7 @@
 package com.techelevator.view;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Map;
@@ -10,19 +11,18 @@ import java.text.SimpleDateFormat;
 
 public class cashRegister {
     Scanner in = new Scanner(System.in);
-    FileWriter auditFile;
-    PrintWriter writer;
-    public String[] options = {"1) Feed Money", "2) Select Product", "3) Finish Transaction"};
-    public Map<String, Products> items;
-    public int balance = 0;
-    public String inputString;
-    public int selectionNum = -1;
-    public int selection;
-    public Inventory inventory;
-    public Products choice;
-    public SimpleDateFormat currentTimeFormatter;
-    public SimpleDateFormat currentDateFormatter;
-
+    private FileWriter auditFile;
+    private PrintWriter writer;
+    private String[] options = {"1) Feed Money", "2) Select Product", "3) Finish Transaction"};
+    private Map<String, Products> items;
+    private int balance = 0;
+    private String inputString;
+    private int selectionNum;
+    private int selection;
+    protected Inventory inventory;
+    private Products choice;
+    private SimpleDateFormat currentTimeFormatter;
+    private SimpleDateFormat currentDateFormatter;
 
 
     public cashRegister(Inventory inventory) {
@@ -41,13 +41,10 @@ public class cashRegister {
             currentDateFormatter = new SimpleDateFormat("dd-MM-yyy");
             writer.println(currentDateFormatter.format(now) + " | " + currentTimeFormatter.format(now) + " | " + action + " | " + amount + " | " + this.balance);
             writer.close();
+
         } catch (Exception ignored) {
         }
     }
-
-
-
-
 
     public void displayOptions() {
         for (int i = 0; i < this.options.length; i++) {
@@ -55,10 +52,7 @@ public class cashRegister {
             System.out.println(this.options[i]);
 
         }
-
-
         System.out.println("\nCurrent money provided: $" + this.balance + ".00");
-
     }
 
     public int getOptionsSelected() {
@@ -89,7 +83,6 @@ public class cashRegister {
             case 3:
                 this.finishTransaction();
                 return;
-
             default:
                 this.optionsFunction();
         }
@@ -100,6 +93,10 @@ public class cashRegister {
         System.out.println("Make your choice(based on the items code): ");
         inputString = in.nextLine();
         Products choice = this.inventory.makeSale(inputString);
+        if(choice == null){
+            System.out.println("Invalid code: " + inputString + "\n");
+            this.optionsFunction();
+        }
         if (choice.getPrice() <= this.balance) {
             if (choice.stillAvailable() != "Sold Out!") {
                 this.balance -= choice.getPrice();
@@ -111,14 +108,12 @@ public class cashRegister {
                 System.out.println("That item is sold out!\nPlease try another selection.\n");
             }
         } else {
-            System.out.println("Need more money!");
+            System.out.println("Need more money!" + "\n");
         }
-
         this.optionsFunction();
     }
 
     public void feedMoney() {
-        this.selection = -1;
         System.out.println("Please add either $1, $2, $5, $10");
         try {
             inputString = in.nextLine();
@@ -141,13 +136,12 @@ public class cashRegister {
             case 10:
                 this.balance += 10;
                 break;
-
             default:
                 System.out.println("Invalid input please enter Integer");
                 this.feedMoney();
         }
         this.printBalance();
-        this.writeToFile("Fed Money",this.selection);
+        this.writeToFile("Fed Money", this.selection);
     }
 
     public void finishTransaction() {
@@ -167,12 +161,4 @@ public class cashRegister {
         System.out.println("\nYour balance: $" + this.balance + ".00");
     }
 
-    public void writeToFile(String Action) {
-        writer.println();
-    }
-
-
-    public static void main(String[] arg) throws IOException {
-
-    }
 }

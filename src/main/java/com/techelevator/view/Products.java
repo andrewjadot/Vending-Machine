@@ -33,14 +33,6 @@ public abstract class Products {
         return stock;
     }
 
-    //Setters
-   // public void setName(String name) {
-    //    this.name = name;
-   // }
-
-  //  public void setPrice(int price) {
-     //   this.price = price;
-   // }
 
     //Methods
     public String stillAvailable(){
@@ -54,7 +46,6 @@ public abstract class Products {
     public void purchasedItems(){
         this.stock--;
     }
-
 
 
     //Abstract Method

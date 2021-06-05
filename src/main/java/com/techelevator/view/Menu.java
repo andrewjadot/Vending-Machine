@@ -4,21 +4,17 @@ import java.util.*;
 
 public class Menu {
     Scanner in = new Scanner(System.in);
-
-    public static String[] menuItems = {"1) Inventory", "2) Purchase", "3) Exit"};
-   public static Map<String, Products> items;
-
-    public int selectionNum;
-    public String inputString;
-    public int selection;
-    public Inventory inventory;
-    public cashRegister cashregister;
-
+    private static String[] menuItems = {"1) Inventory", "2) Purchase", "3) Exit"};
+    private static Map<String, Products> items;
+    private int selectionNum;
+    private String inputString;
+    private int selection;
+    private Inventory inventory;
+    private cashRegister cashregister;
 
 
     public Menu(String[] menuItems, cashRegister cashRegister) {
         this.menuItems = menuItems;
-        this.selection = -1;
         this.cashregister = cashRegister;
     }
 
@@ -27,12 +23,7 @@ public class Menu {
         for (int i = 0; i < this.menuItems.length; i++) {
             System.out.println(this.menuItems[i]);
         }
-
-
-
         System.out.println("\nEnter your selection number: ");
-
-
     }
 
     public int getUserSelection() {
@@ -44,12 +35,12 @@ public class Menu {
             if (selectionNum > 0 && selectionNum <= this.menuItems.length) {
                 this.selection = selectionNum;
 
-                return selectionNum;
+                return 0;
             }
         } catch (NumberFormatException e) {
         }
 
-        System.out.println(this.selection);
+
         System.out.println("\nInvalid Input: " + inputString);
 
         return selectionNum;
@@ -68,15 +59,16 @@ public class Menu {
                 this.menuFunction();
                 return;
             case 3:
+
                 System.out.println("Thank you come again!");
                 System.exit(0);
 
             default:
-                return;
+                menuFunction();
         }
     }
 
-    public void menuFunction(){
+    public void menuFunction() {
         this.makeMenu();
         this.getUserSelection();
         this.processSelection();

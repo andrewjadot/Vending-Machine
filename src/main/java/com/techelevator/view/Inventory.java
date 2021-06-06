@@ -8,7 +8,7 @@ public class Inventory {
     private static Map<String, Products> items = new LinkedHashMap<String, Products>();
     private Products choice;
 
-
+    // List of Items
     Gum fiveGum = new Gum("FiveGum", 1);
     Gum bigRed = new Gum("Big Red", 1);
     Gum doubleMint = new Gum("Double Mint", 1);
@@ -25,8 +25,8 @@ public class Inventory {
     Drinks coke = new Drinks("Coke", 4);
     Drinks sprite = new Drinks("Sprite", 4);
 
-
-    public Inventory() { //change this to a map
+    // Inventory constructor, adds all to map
+    public Inventory() {
         this.items = items;
 
 
@@ -44,6 +44,7 @@ public class Inventory {
         items.put("D3", sprite);
     }
 
+    // Method declaration for displaying items
     public void displayItems() {
 
         if (items != null) {
@@ -54,7 +55,8 @@ public class Inventory {
         }
 
     }
-
+    // Method to get product choice based on user input
+    // Returns selected product object
     public Products makeSale(String inputString) {
 
         if (items.containsKey(inputString)) {

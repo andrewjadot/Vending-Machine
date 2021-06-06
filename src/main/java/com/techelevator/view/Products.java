@@ -11,7 +11,7 @@ public abstract class Products {
 
 
 
-    //Constructor
+    //Constructor for general product info
     public Products( String name, int price){
 
         this.name = name;
@@ -34,7 +34,7 @@ public abstract class Products {
     }
 
 
-    //Methods
+    //Method to see whether item is in stock or not
     public String stillAvailable(){
         if(this.stock >= 1){
             return "" + this.stock;
@@ -42,13 +42,13 @@ public abstract class Products {
         return "Sold Out!";
         }
 
-
+    // Method to reduce stock by one after every purchase
     public void purchasedItems(){
         this.stock--;
     }
 
 
-    //Abstract Method
+    //Abstract Method for item sound
     public abstract String makeSound();
 
 

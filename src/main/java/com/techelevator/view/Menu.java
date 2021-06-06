@@ -12,12 +12,12 @@ public class Menu {
     private Inventory inventory;
     private cashRegister cashregister;
 
-
+    // Constructor for our menu class
     public Menu(String[] menuItems, cashRegister cashRegister) {
         this.menuItems = menuItems;
         this.cashregister = cashRegister;
     }
-
+    //Creates menu interface based on list of menu items on line 7
     public void makeMenu() {
 
         for (int i = 0; i < this.menuItems.length; i++) {
@@ -26,7 +26,7 @@ public class Menu {
         System.out.print("\nEnter your selection number: ");
 
     }
-
+    // Reads user input and converts to an integer
     public int getUserSelection() {
 
         try {
@@ -46,7 +46,7 @@ public class Menu {
 
         return selectionNum;
     }
-
+    // Switch for first menu selection
     public void processSelection() {
 
         switch (this.selection) {
@@ -68,20 +68,20 @@ public class Menu {
                 menuFunction();
         }
     }
-
+    // Helper function
     public void menuFunction() {
         this.makeMenu();
         this.getUserSelection();
         this.processSelection();
     }
-
+    // Program is ran from here
     public static void main(String[] args) {
         System.out.println("");
         System.out.println("*****************************");
         System.out.println("****WELCOME TO VENDO-TRON****");
         System.out.println("*****************************");
         System.out.println("");
-
+    // Next 3 lines create class objects
         Inventory inventory = new Inventory();
         cashRegister cashRegister = new cashRegister(inventory);
         Menu myMenu = new Menu(menuItems, cashRegister);

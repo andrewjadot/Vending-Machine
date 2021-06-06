@@ -24,13 +24,13 @@ public class cashRegister {
     private SimpleDateFormat currentTimeFormatter;
     private SimpleDateFormat currentDateFormatter;
 
-
+    // Cash register constructor
     public cashRegister(Inventory inventory) {
         this.inventory = inventory;
         this.balance = balance;
         this.selection = -1;
     }
-
+    // Method that takes an action string and dollar amount and prints it to audit file
     public void writeToFile(String action, int amount) {
         Date now = new Date();
         try {
@@ -45,7 +45,7 @@ public class cashRegister {
         } catch (Exception ignored) {
         }
     }
-
+    // Method to display the cash register options
     public void displayOptions() {
         for (int i = 0; i < this.options.length; i++) {
 
@@ -55,7 +55,7 @@ public class cashRegister {
         System.out.println("\nRemaining Balance: $" + this.balance + ".00");
         System.out.print("\nPlease select an option: ");
     }
-
+    // Method takes user input and converts it to a string and returns selection number as well
     public int getOptionsSelected() {
         try {
             inputString = in.nextLine();
@@ -71,7 +71,7 @@ public class cashRegister {
         System.out.println("\nInvalid Input: " + inputString + "\n");
         return selectionNum;
     }
-
+    // Switch for cash register options
     public void processSelection() {
         switch (this.selection) {
             case 1:
@@ -88,7 +88,7 @@ public class cashRegister {
                 this.optionsFunction();
         }
     }
-
+    // Checks validity of user input and returns them to the cash register options also displaying the balance
     public void makeSale() {
         System.out.println("");
         System.out.println("Make your choice(based on the items code): ");
@@ -114,7 +114,7 @@ public class cashRegister {
         }
         this.optionsFunction();
     }
-
+    // Method for feeding money to vending machine
     public void feedMoney() {
         System.out.print("\nPlease add either $1, $2, $5, $10 (as an integer): ");
         try {
@@ -144,13 +144,13 @@ public class cashRegister {
         }
         this.writeToFile("Fed Money", this.selection);
     }
-
+    // Method for finishing transaction and giving back change as well as updating balance upon ending the transaction
     public void finishTransaction() {
         System.out.println("\nTransaction Complete. \nPlease take your change: $" + this.balance + ".00\n");
         this.writeToFile("GIVE CHANGE", this.balance);
         this.balance = 0;
     }
-
+    // Helper method for the cash register options
     public void optionsFunction() {
         this.displayOptions();
         this.getOptionsSelected();

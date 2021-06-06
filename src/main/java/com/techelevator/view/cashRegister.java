@@ -39,7 +39,7 @@ public class cashRegister {
 
             currentTimeFormatter = new SimpleDateFormat("HH:mm:ss");
             currentDateFormatter = new SimpleDateFormat("dd-MM-yyy");
-            writer.println(currentDateFormatter.format(now) + " | " + currentTimeFormatter.format(now) + " | " + action + " | " + amount + " | " + this.balance);
+            writer.println(currentDateFormatter.format(now) + " | " + currentTimeFormatter.format(now) + " | " + action + " | $" + amount + ".00 | $" + this.balance + ".00 ");
             writer.close();
 
         } catch (Exception ignored) {

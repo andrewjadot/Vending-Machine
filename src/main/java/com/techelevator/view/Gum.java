@@ -9,6 +9,6 @@ public class Gum extends Products{
 //Abstract Method implementation override
     @Override
     public String makeSound() {
-        return "Chew Chew, Yum!";
+        return "Chew, Chew, Yum!";
     }
 }

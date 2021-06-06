@@ -20,6 +20,7 @@ public abstract class Products {
 
     }
 
+
     //Getters
     public String getName() {
         return name;
@@ -47,10 +48,7 @@ public abstract class Products {
         this.stock--;
     }
 
-
     //Abstract Method
     public abstract String makeSound();
-
-
 
 }

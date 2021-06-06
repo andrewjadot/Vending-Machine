@@ -48,12 +48,9 @@ public abstract class Products {
         this.stock--;
     }
 
-<<<<<<< HEAD
-
     //Abstract Method for item sound
-=======
     //Abstract Method
->>>>>>> 439d68be9be492b5ab84870f5bd3b4bdb2973355
+
     public abstract String makeSound();
 
 }
